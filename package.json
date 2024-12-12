@@ -1,0 +1,27 @@
+{
+  "name": "ws-iot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "mq.js",
+  "scripts": {
+    "start": "nodemon mq.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://minhnguyen389@bitbucket.org/minhnguyen389/ws-iot.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://bitbucket.org/minhnguyen389/ws-iot/issues"
+  },
+  "homepage": "https://bitbucket.org/minhnguyen389/ws-iot#readme",
+  "dependencies": {
+    "dayjs": "^1.11.11",
+    "mqtt": "^5.3.3"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
