@@ -8,18 +8,10 @@ let timezone = require('dayjs/plugin/timezone') // dependent on utc plugin
 dayjs.extend(utc)
 dayjs.extend(timezone)
 
-//device_id, msg_id
-let ids = new Map();
-
-const { calculateCRC } = require('./checksum');
-
-//user admin
-//adMqWs/ws$OmQt^121224
-
 let initMQTT = () => {
     this.mqttClient = mqtt.connect('mqtt://mq.zigbeelight.net:1883',
         {
-            username: 'adMqWs',
+            username: 'iotMqAd',
             password: Buffer.from('ws$OmQt^121224')
         })
 
@@ -76,8 +68,8 @@ let initMQTT = () => {
                         money: mesBody.data
                     }
 
-                    this.mqttClient.publish(`PTCSP/${deviceId}`, JSON.stringify(pub_data), { qos: 1, retain: false }, (err) => {
-                        if (err) { console.log(`*****MQTT publish 'PTCSP/${deviceId}' ERR: ${err}`); }
+                    this.mqttClient.publish(`omsb/${deviceId}/data`, JSON.stringify(pub_data), { qos: 1, retain: false }, (err) => {
+                        if (err) { console.log(`*****MQTT publish 'omsb/${deviceId}/data' ERR: ${err}`); }
                     });
                 }
             } catch (error) {
