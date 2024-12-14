@@ -100,7 +100,7 @@ let initMQTT = () => {
                 mesBody = JSON.parse(msg);
 
                 // Kiểm tra xem là feedback hay là ton
-                if (mesBody.request_id && mesBody.voiceType && mesBody.iccid && mesBody.version) {
+                if (mesBody.version) {
                     let pub_data = {
                         device_id: deviceId,
                         data: 'ton',
