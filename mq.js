@@ -98,15 +98,30 @@ let initMQTT = () => {
 
             try {
                 mesBody = JSON.parse(msg);
-                let pub_data = {
-                    device_id: deviceId,
-                    msg_id: mesBody.request_id,
-                    time: dayjs().utc().format()
-                }
 
-                this.mqttClient.publish(`omqt/${deviceId}/feedback`, JSON.stringify(pub_data), { qos: 1, retain: false }, (err) => {
-                    if (err) { console.log(`*****MQTT publish 'omqt/${deviceId}/feedback' ERR: ${err}`); }
-                });
+                // Kiểm tra xem là feedback hay là ton
+                if (mesBody.request_id && mesBody.voiceType && mesBody.iccid && mesBody.version && mesBody.state) {
+                    let pub_data = {
+                        device_id: deviceId,
+                        data: 'ton',
+                        time: dayjs().utc().format()
+                    }
+
+                    this.mqttClient.publish(`omqt/${deviceId}/event`, JSON.stringify(pub_data), { qos: 1, retain: false }, (err) => {
+                        if (err) { console.log(`*****MQTT publish 'omqt/${deviceId}/event' ERR: ${err}`); }
+                    });
+                }
+                else {
+                    let pub_data = {
+                        device_id: deviceId,
+                        msg_id: mesBody.request_id,
+                        time: dayjs().utc().format()
+                    }
+
+                    this.mqttClient.publish(`omqt/${deviceId}/feedback`, JSON.stringify(pub_data), { qos: 1, retain: false }, (err) => {
+                        if (err) { console.log(`*****MQTT publish 'omqt/${deviceId}/feedback' ERR: ${err}`); }
+                    });
+                }
 
             } catch (error) {
 
